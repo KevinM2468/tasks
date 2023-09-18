@@ -102,7 +102,29 @@ export function allRGB(colors: string[]): boolean {
  * And the array [] would become "0=0".
  */
 export function makeMath(addends: number[]): string {
-    return "";
+    const finSum: number = addends.reduce(
+        (sum: number, current: number): number => sum + current,
+        0
+    );
+
+    let working: string = addends.reduce(
+        (workString: string, current: number): string => {
+            return workString + "+" + current;
+        },
+        "="
+    );
+
+    // an extra '+' is inserted at the beginning after the '='
+    // This removes it
+    working = working.replace("+", "");
+
+    // this will be the case if an empty array is fed in
+    // make the post-equal-sign equal zero
+    if (working == "=") {
+        working = "=0";
+    }
+
+    return finSum + working;
 }
 
 /**
