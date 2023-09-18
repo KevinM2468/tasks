@@ -86,7 +86,12 @@ export function countShortWords(words: string[]): number {
  * then return true.
  */
 export function allRGB(colors: string[]): boolean {
-    return false;
+    return colors.reduce((rolling: boolean, current: string): boolean => {
+        return (
+            rolling &&
+            (current == "red" || current == "green" || current == "blue")
+        );
+    }, true);
 }
 
 /**
