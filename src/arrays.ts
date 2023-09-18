@@ -137,5 +137,40 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    return [];
+    const index = values.reduce(
+        (ind: number, current: number, curInd: number): number => {
+            if (ind < curInd) {
+                return ind;
+            }
+
+            if (current < 0) {
+                return curInd;
+            }
+
+            return curInd + 1;
+        },
+        0
+    );
+
+    const sumNum = values.reduce(
+        (sum: number, current: number, curInd: number): number => {
+            if (current < 0) {
+                return sum;
+            }
+            if (curInd >= index) {
+                return sum;
+            }
+            return sum + current;
+        },
+        0
+    );
+
+    console.log(values);
+    console.log(index);
+    console.log(sumNum);
+    const cloned = [...values];
+    console.log(cloned);
+    cloned.splice(index + 1, 0, sumNum);
+    console.log(cloned);
+    return cloned;
 }
