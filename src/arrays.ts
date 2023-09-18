@@ -165,12 +165,7 @@ export function injectPositive(values: number[]): number[] {
         0
     );
 
-    console.log(values);
-    console.log(index);
-    console.log(sumNum);
     const cloned = [...values];
-    console.log(cloned);
     cloned.splice(index + 1, 0, sumNum);
-    console.log(cloned);
     return cloned;
 }
