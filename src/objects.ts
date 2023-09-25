@@ -42,6 +42,18 @@ export function isCorrect(question: Question, answer: string): boolean {
  * be exactly one of the options.
  */
 export function isValid(question: Question, answer: string): boolean {
+    const { type, options } = question;
+
+    if (type == "short_answer_question") {
+        return true;
+    }
+
+    if (type == "multiple_choice_question") {
+        return options.includes(answer);
+    }
+
+    // The documentation does not include any more examples
+    // I will assume this means there are no other valid cases
     return false;
 }
 
