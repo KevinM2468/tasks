@@ -89,7 +89,23 @@ export function toShortForm(question: Question): string {
  * Check the unit tests for more examples of what this looks like!
  */
 export function toMarkdown(question: Question): string {
-    return "";
+    let work = "";
+    work += "# " + question.name + "\n";
+    work += question.body + "\n";
+
+    if (question.type == "multiple_choice_question") {
+        work += question.options.reduce(
+            (inWork: string, option: string): string => {
+                return inWork + "- " + option + "\n";
+            },
+            ""
+        );
+    }
+
+    // There is an extra \n character at the end
+    work = work.substring(0, work.length - 1);
+
+    return work;
 }
 
 /**
