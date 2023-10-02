@@ -66,18 +66,10 @@ export function findQuestion(
  */
 // TODO  NOT DONE
 export function removeQuestion(questions: Question[], id: number): Question[] {
-    const index: number = questions.reduce(
-        (retInd: number, current: Question, curInd: number): number => {
-            if (current.id == id) {
-                return curInd;
-            }
-            return retInd;
-        },
-        -1
-    );
-    const ret: Question[] = { ...questions };
+    const index: number = findQuestionIndex(questions, id);
+    const ret: Question[] = [...questions];
     if (index != -1) {
-        return ret.splice(index, 1);
+        ret.splice(index, 1);
     }
     return ret;
     //return { ...questions }.splice(0, index);
@@ -202,6 +194,13 @@ export function addNewQuestion(
     return [...questions, makeBlankQuestion(id, name, type)];
 }
 
+function findQuestionIndex(questions: Question[], targetId: number): number {
+    const qesInd: number = questions.findIndex(
+        (ques: Question): boolean => ques.id == targetId
+    );
+    return qesInd;
+}
+
 /***
  * Consumes an array of Questions and produces a new array of Questions, where all
  * the Questions are the same EXCEPT for the one with the given `targetId`. That
@@ -212,9 +211,7 @@ export function renameQuestionById(
     targetId: number,
     newName: string
 ): Question[] {
-    const qesInd: number = questions.findIndex(
-        (ques: Question): boolean => ques.id == targetId
-    );
+    const qesInd: number = findQuestionIndex(questions, targetId);
     if (qesInd == -1) {
         return questions;
     }
@@ -236,9 +233,7 @@ export function changeQuestionTypeById(
     targetId: number,
     newQuestionType: QuestionType
 ): Question[] {
-    const qesInd: number = questions.findIndex(
-        (ques: Question): boolean => ques.id == targetId
-    );
+    const qesInd: number = findQuestionIndex(questions, targetId);
     if (qesInd == -1) {
         return questions;
     }
@@ -267,7 +262,25 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string
 ): Question[] {
-    return [];
+    const qesInd: number = findQuestionIndex(questions, targetId);
+    if (qesInd == -1) {
+        return questions;
+    }
+    const newQuestionArray: Question[] = [...questions];
+    const quesClone: Question = {
+        ...newQuestionArray[qesInd],
+        options: [...newQuestionArray[qesInd].options]
+    };
+    if (
+        targetOptionIndex == -1 ||
+        targetOptionIndex >= quesClone.options.length
+    ) {
+        quesClone.options.push(newOption);
+    } else {
+        quesClone.options[targetOptionIndex] = newOption;
+    }
+    newQuestionArray[qesInd] = quesClone;
+    return newQuestionArray;
 }
 
 /***
