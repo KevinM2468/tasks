@@ -61,8 +61,23 @@ export function findQuestion(
  * Consumes an array of questions and returns a new array that does not contain the question
  * with the given `id`.
  */
+// TODO  NOT DONE
 export function removeQuestion(questions: Question[], id: number): Question[] {
-    return [];
+    const index: number = questions.reduce(
+        (retInd: number, current: Question, curInd: number): number => {
+            if (current.id == id) {
+                return curInd;
+            }
+            return retInd;
+        },
+        -1
+    );
+    const ret: Question[] = { ...questions };
+    if (index != -1) {
+        return ret.splice(index, 1);
+    }
+    return ret;
+    //return { ...questions }.splice(0, index);
 }
 
 /***
@@ -70,7 +85,10 @@ export function removeQuestion(questions: Question[], id: number): Question[] {
  * questions, as an array.
  */
 export function getNames(questions: Question[]): string[] {
-    return [];
+    return questions.reduce((work: string[], current: Question): string[] => {
+        work.push(current.name);
+        return work;
+    }, []);
 }
 
 /***
