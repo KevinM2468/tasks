@@ -1,5 +1,8 @@
+import { isUndefined } from "util";
 import { Answer } from "./interfaces/answer";
 import { Question, QuestionType } from "./interfaces/question";
+import { makeBlankQuestion } from "./objects";
+import { type } from "os";
 
 /**
  * Consumes an array of questions and returns a new array with only the questions
@@ -196,7 +199,7 @@ export function addNewQuestion(
     name: string,
     type: QuestionType
 ): Question[] {
-    return [];
+    return [...questions, makeBlankQuestion(id, name, type)];
 }
 
 /***
@@ -209,7 +212,16 @@ export function renameQuestionById(
     targetId: number,
     newName: string
 ): Question[] {
-    return [];
+    const qesInd: number = questions.findIndex(
+        (ques: Question): boolean => ques.id == targetId
+    );
+    if (qesInd == -1) {
+        return questions;
+    }
+    const qes: Question = { ...questions[qesInd], name: newName };
+    const newQuestionArray = [...questions];
+    newQuestionArray[qesInd] = qes;
+    return newQuestionArray;
 }
 
 /***
