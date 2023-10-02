@@ -48,6 +48,12 @@ export function findQuestion(
     questions: Question[],
     id: number
 ): Question | null {
+    for (let i = 0; i < questions.length; i++) {
+        const quest: Question = questions[i];
+        if (quest.id == id) {
+            return quest;
+        }
+    }
     return null;
 }
 
