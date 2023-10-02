@@ -236,7 +236,19 @@ export function changeQuestionTypeById(
     targetId: number,
     newQuestionType: QuestionType
 ): Question[] {
-    return [];
+    const qesInd: number = questions.findIndex(
+        (ques: Question): boolean => ques.id == targetId
+    );
+    if (qesInd == -1) {
+        return questions;
+    }
+    const qes: Question = { ...questions[qesInd], type: newQuestionType };
+    if (newQuestionType == "short_answer_question") {
+        qes.options = [];
+    }
+    const newQuestionArray = [...questions];
+    newQuestionArray[qesInd] = qes;
+    return newQuestionArray;
 }
 
 /**
