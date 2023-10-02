@@ -1,7 +1,7 @@
 import { isUndefined } from "util";
 import { Answer } from "./interfaces/answer";
 import { Question, QuestionType } from "./interfaces/question";
-import { makeBlankQuestion } from "./objects";
+import { duplicateQuestion, makeBlankQuestion } from "./objects";
 import { type } from "os";
 
 /**
@@ -64,7 +64,6 @@ export function findQuestion(
  * Consumes an array of questions and returns a new array that does not contain the question
  * with the given `id`.
  */
-// TODO  NOT DONE
 export function removeQuestion(questions: Question[], id: number): Question[] {
     const index: number = findQuestionIndex(questions, id);
     const ret: Question[] = [...questions];
@@ -294,5 +293,16 @@ export function duplicateQuestionInArray(
     targetId: number,
     newId: number
 ): Question[] {
-    return [];
+    // I am going to instead use my find index function to
+    // avoid a double traverse through the array
+    //const oldQuestion = findQuestion(questions, targetId);
+    const oldInd = findQuestionIndex(questions, targetId);
+    const oldQuestion = questions[oldInd];
+    if (oldQuestion == null) {
+        return questions;
+    }
+    const quesClone: Question = duplicateQuestion(newId, oldQuestion);
+    const newQuestionArray: Question[] = [...questions];
+    newQuestionArray.splice(oldInd + 1, 0, quesClone);
+    return newQuestionArray;
 }
