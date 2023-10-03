@@ -1,8 +1,6 @@
-import { isUndefined } from "util";
 import { Answer } from "./interfaces/answer";
 import { Question, QuestionType } from "./interfaces/question";
 import { duplicateQuestion, makeBlankQuestion } from "./objects";
-import { type } from "os";
 
 /**
  * Consumes an array of questions and returns a new array with only the questions
