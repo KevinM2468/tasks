@@ -33,8 +33,8 @@ export function TwoDice(): JSX.Element {
                 <Button onClick={rollRight}>Roll Right</Button>
                 Right Is A {rightNum}
             </span>
-            {leftNum == rightNum && <div>Win</div>}
-            {leftNum != rightNum && <div>Lose</div>}
+            {leftNum == rightNum && leftNum != 1 && <div>Win</div>}
+            {leftNum == 1 && rightNum == 1 && <div>Lose</div>}
         </div>
     );
 }

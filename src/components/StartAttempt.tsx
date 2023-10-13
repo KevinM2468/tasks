@@ -38,7 +38,7 @@ export function StartAttempt(): JSX.Element {
             }
             {
                 <Button onClick={endClicked} disabled={!inProgress}>
-                    End Quiz
+                    Stop Quiz
                 </Button>
             }
             {
