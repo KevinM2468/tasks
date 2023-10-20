@@ -19,6 +19,7 @@ function App(): JSX.Element {
                 UM COS420 with React Hooks and TypeScript
             </header>
             <div>
+                <h1>What is happening</h1>
                 <h2>This is a thing to introduce web work</h2>
                 <p>
                     Edit <code>src/App.tsx</code> and save. This page will
@@ -69,7 +70,7 @@ function App(): JSX.Element {
                 </div>
             </div>
             <hr></hr>
-            {/* <DoubleHalf></DoubleHalf> */}
+            <DoubleHalf></DoubleHalf>
             <hr></hr>
             <ChooseTeam></ChooseTeam>
             <hr></hr>
